@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;700&display=swap');
+
+:root{
+  --bg-1: #0f1724;
+  --bg-2: #081226;
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.03);
+  --accent: #6ee7b7;
+  --accent-2: #7dd3fc;
+  --danger: #ff6b6b;
+  --muted: rgba(255,255,255,0.65);
+  --glow: 0 8px 30px rgba(109,199,255,0.08), inset 0 0 40px rgba(45,212,191,0.03);
+}
+
+* { box-sizing: border-box; }
+html,body{
+  height:100%;
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(34,197,94,0.06), transparent),
+              radial-gradient(900px 400px at 90% 85%, rgba(59,130,246,0.04), transparent),
+              linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  color: #e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-y:auto;
+}
+
+/* subtle starfield */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity:0.25;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+  animation: star-drift 45s linear infinite;
+}
+@keyframes star-drift{
+  0%{ transform: translateY(0) }
+  100%{ transform: translateY(-200px) }
+}
+
+/* Center stage */
+.app-wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 20px;
+}
+
+/* Game card */
+.card{
+  width:100%;
+  max-width:680px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:14px;
+  padding:28px;
+  box-shadow: var(--glow);
+  border: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px) saturate(120%);
+  position:relative;
+  overflow:hidden;
+}
+
+/* Header / Title */
+.title{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:14px;
+}
+.title h1{
+  font-family: 'Press Start 2P', monospace;
+  font-size:18px;
+  letter-spacing:1px;
+  margin:0;
+  color: var(--accent-2);
+  text-shadow: 0 2px 12px rgba(124,58,237,0.12);
+}
+.title .tag{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* layout */
+.row{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.controls{
+  flex:1 1 300px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* Input */
+input[type="number"],
+input[type="text"]{
+  -webkit-appearance:none;
+  appearance:none;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.06);
+  padding:14px 16px;
+  border-radius:10px;
+  color: #eaf6ff;
+  font-size:16px;
+  width:120px;
+  text-align:center;
+  transition: box-shadow .18s ease, transform .12s ease, border-color .12s ease;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45) inset;
+}
+input[type="number"]:focus{
+  outline:none;
+  border-color: var(--accent);
+  box-shadow: 0 4px 30px rgba(45,212,191,0.09);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+button{
+  cursor:pointer;
+  border: none;
+  padding:12px 16px;
+  border-radius:10px;
+  font-weight:600;
+  color: white;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
+  border:1px solid rgba(255,255,255,0.06);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.4);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+button:active{ transform:translateY(1px) scale(.995); }
+
+/* primary action (guess) */
+.btn-primary{
+  background: linear-gradient(90deg, rgba(124,58,237,0.18), rgba(45,212,191,0.12));
+  border: 1px solid rgba(124,58,237,0.16);
+  color:#f8ffff;
+  text-shadow: 0 2px 8px rgba(33,150,243,0.06);
+  box-shadow: 0 10px 30px rgba(45,212,191,0.06), 0 2px 8px rgba(124,58,237,0.06);
+}
+.btn-primary:hover{
+  filter:brightness(1.05);
+  transform: translateY(-3px);
+}
+
+/* secondary (restart / again) */
+.btn-secondary{
+  background: transparent;
+  border: 1px dashed rgba(255,255,255,0.05);
+  color: var(--muted);
+}
+.btn-secondary:hover{
+  color:var(--accent-2);
+  transform:translateY(-3px);
+}
+
+/* Secret number / display */
+.secret{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: radial-gradient(circle at 30% 20%, rgba(45,212,191,0.12), rgba(124,58,237,0.08));
+  border: 2px solid rgba(255,255,255,0.04);
+  color:var(--accent);
+  font-family: 'Press Start 2P', monospace;
+  font-size:20px;
+  text-shadow: 0 6px 30px rgba(45,212,191,0.06);
+  box-shadow: 0 10px 30px rgba(60,130,246,0.03);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* Message area */
+.message{
+  margin-top:16px;
+  padding:12px 14px;
+  border-radius:8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+  color: var(--muted);
+  font-weight:600;
+  display:inline-block;
+  box-shadow: none;
+}
+.message.success{ color: var(--accent); }
+.message.error{ color: var(--danger); }
+
+/* Score / meta */
+.meta{
+  display:flex;
+  gap:12px;
+  margin-top:14px;
+  align-items:center;
+  color:var(--muted);
+  font-size:13px;
+}
+.meta .chip{
+  background: rgba(255,255,255,0.02);
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* small helpers for gamey feedback */
+.pulse{
+  animation: pulse 1s ease forwards;
+}
+@keyframes pulse{
+  0%{ transform: scale(1); box-shadow: 0 6px 28px rgba(45,212,191,0.08) }
+  50%{ transform: scale(1.08); box-shadow: 0 18px 48px rgba(45,212,191,0.16) }
+  100%{ transform: scale(1); box-shadow: 0 6px 28px rgba(45,212,191,0.08) }
+}
+
+/* shake for wrong guess */
+.shake{
+  animation: shake-it .6s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shake-it{
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+/* win glow when the player wins (JS can add .win to body or .card) */
+.win .card,
+.card.win{
+  border-color: rgba(109,199,255,0.18);
+  box-shadow: 0 20px 60px rgba(109,199,255,0.08), 0 0 60px rgba(45,212,191,0.06);
+}
+
+/* Heatmap container */
+.heatmap-wrap{
+  margin: 14px 0 8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+}
+.heatmap{
+  display:flex;
+  gap:8px;
+  width:100%;
+  max-width:520px;
+  padding:8px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* Individual segments */
+.heatmap .segment{
+  flex:1 1 0;
+  height:14px;
+  border-radius:8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease, background .28s ease, filter .28s ease;
+  --glow-opacity: 0;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+/* glowing state: yellow -> red using opacity variable */
+.heatmap .segment.glow{
+  transform: translateY(-6px) scale(1.06);
+  /* yellow to red gradient; opacity controlled by --glow-opacity (0..1) */
+  background: linear-gradient(90deg,
+    rgba(255,235,59,var(--glow-opacity)),   /* yellow */
+    rgba(255,153,0, calc(var(--glow-opacity) * 0.95)), /* orange */
+    rgba(244,67,54, var(--glow-opacity))    /* red */
+  );
+  box-shadow: 0 6px 30px rgba(244,67,54, calc(var(--glow-opacity) * 0.18)), 0 0 24px rgba(255,193,7, calc(var(--glow-opacity) * 0.12));
+  filter: saturate(calc(1 + var(--glow-opacity)));
+}
+
+/* small animation trigger */
+.heatmap .segment.burst{
+  animation: heat-burst .5s ease forwards;
+}
+@keyframes heat-burst{
+  0%{ transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 28px rgba(244,67,54,0.18) }
+  60%{ transform: translateY(-10px) scale(1.09); box-shadow: 0 18px 48px rgba(244,67,54,0.26) }
+  100%{ transform: translateY(-6px) scale(1.06); }
+}
+
+/* responsive shrink */
+@media (max-width:520px){
+  .heatmap{ gap:6px; }
+  .heatmap .segment{ height:10px; border-radius:6px; }
+}
+
+/* small accessibility improvements */
+button:focus, input:focus{
+  outline: 3px solid rgba(45,212,191,0.08);
+  outline-offset:3px;
+}
+
+/* Hint area styles */
+.hint{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+  color: var(--muted);
+  font-weight:600;
+  transition: transform .18s ease, opacity .18s ease;
+  opacity:0.95;
+}
+.hint.show{
+  transform: translateY(-6px);
+  opacity:1;
+}
+
+/* small focus for hint button */
+#hintBtn:focus{
+  outline: 3px solid rgba(255,193,7,0.12);
+  outline-offset:3px;
+}
+
+/* Ensure hint button is wired to handler */
+(function ensureHintWired(){
+  const hb = document.getElementById('hintBtn');
+  // handler can be onHintClick or showHint depending on implementation
+  const handler = (typeof onHintClick === 'function') ? onHintClick
+                : (typeof showHint === 'function') ? showHint
+                : null;
+
+  if (!hb) {
+    console.warn('Hint button (#hintBtn) not found in DOM.');
+    return;
+  }
+
+  if (handler) {
+    // remove any previous identical listener then add
+    hb.removeEventListener('click', handler);
+    hb.addEventListener('click', handler);
+    // keep disabled state in sync if tokensLeft/inGame exist
+    try {
+      hb.disabled = !window.inGame || (typeof window.tokensLeft !== 'undefined' && window.tokensLeft <= 0);
+    } catch(e){}
+    console.log('Hint button wired.');
+  } else {
+    hb.addEventListener('click', () => {
+      console.warn('Hint handler not defined (onHintClick/showHint).');
+      const hintEl = document.getElementById('hint');
+      if

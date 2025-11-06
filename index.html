@@ -1,47 +1,90 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JavaScript Number Guessing Game</title>
-    <script src="script.js" defer></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Guessing Game</title>
+
+    <!-- link the stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- other head content -->
   </head>
   <body>
-    <p id="date"></p>
-    <p id="curTime"></p>
+    <div class="app-wrap">
+      <div class="card">
+        <div class="title">
+          <h1>Guessing Game</h1>
+          <div class="tag">A little game — try to guess the number</div>
+        </div>
 
-    <h3 >What is your name?</h3>
-    <input type="text" id="userName"> 
-    <button id="nameBtn">Enter</button>
-    <p id="nameMsg"></p>
-    <h3>Level</h3>
-    <input type="radio" name="level" id="e" value="3" checked disabled><label for="e">Easy</label>
-    <input type="radio" name="level" id="m" value="10" disabled><label for="m">Medium</label>
-    <input type="radio" name="level" id="h" value="100" disabled><label for="h">Hard</label>
+        <p id="date"></p>
+        <p id="curTime"></p>
 
-    <button id="playBtn" disabled>Play</button>
+        <h3>What is your name?</h3>
+        <input type="text" id="userName" />
+        <button id="nameBtn">Enter</button>
+        <p id="nameMsg"></p>
 
-    <h3 id="msg">Select a Level</h3>
-    <input type="text" id="guess" disabled>
-    <button id="guessBtn" disabled>Guess</button>
-    <button id="giveUpBtn" disabled>Give Up</button>
+        <h3>Level</h3>
+        <div class="row controls">
+          <div>
+            <input type="radio" name="level" id="e" value="3" checked>
+            <label for="e">Easy</label>
+            <input type="radio" name="level" id="m" value="10">
+            <label for="m">Medium</label>
+            <input type="radio" name="level" id="h" value="100">
+            <label for="h">Hard</label>
+          </div>
+          <div>
+            <button id="playBtn" disabled>Play</button>
+          </div>
+        </div>
 
-    <h3>Stats</h3>
-    <p id = "playTime">Time: </p>
-    <p id="wins">Total wins: 0</p>
-    <p id="avgScore">Average Score: </p>
-    <p id="averageTime">Average Time: </p>
+        <h3 id="msg">Select a Level</h3>
 
-    <h3>Leaderboard</h3>
-    <h4>Top Scores</h4>
-    <ol>
-      <li name="leaderboard"></li>
-      <li name="leaderboard"></li>
-      <li name="leaderboard"></li>
-    </ol>
-    <h4>Fastest Times</h4>
-    <ol>
-      <li name="timeLeaderboard"></li>
-      <li name="timeLeaderboard"></li>
-      <li name="timeLeaderboard"></li>
-    </ol>
+        <!-- Heatmap feedback bar -->
+        <div class="heatmap-wrap" aria-hidden="true">
+          <div id="heatmap" class="heatmap" role="presentation"></div>
+        </div>
+
+        <div class="row controls">
+          <input type="text" id="guess" disabled />
+          <button id="guessBtn" disabled>Guess</button>
+          <button id="giveUpBtn" disabled>Give Up</button>
+          <!-- Hint button added -->
+          <button id="hintBtn" class="btn-secondary" aria-label="Get a hint" disabled>Hint</button>
+          <div class="meta" style="align-items:center;">
+            <div class="chip" id="hintCount">Hints: 0</div>
+          </div>
+        </div>
+
+        <!-- Hint area (announced to screen readers) -->
+        <p id="hint" role="status" aria-live="polite" class="hint">No hint yet.</p>
+
+        <h3>Stats</h3>
+        <p id="playTime">Time: </p>
+        <p id="wins">Total wins: 0</p>
+        <p id="avgScore">Average Score: </p>
+        <p id="averageTime">Average Time: </p>
+
+        <h3>Leaderboard</h3>
+        <h4>Top Scores</h4>
+        <ol>
+          <li name="leaderboard"></li>
+          <li name="leaderboard"></li>
+          <li name="leaderboard"></li>
+        </ol>
+        <h4>Fastest Times</h4>
+        <ol>
+          <li name="timeLeaderboard"></li>
+          <li name="timeLeaderboard"></li>
+          <li name="timeLeaderboard"></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- load your JS (adjust filename if different) -->
+    <script src="script.js" defer></script>
   </body>
 </html>
